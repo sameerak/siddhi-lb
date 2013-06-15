@@ -39,33 +39,47 @@ public class EventRRDivider implements Divider,Runnable {
         }
     }
 
-
-
-
-
-
-
-
-
-
     @Override
     public void run() {
-        synchronized (eventList){
-            while(true){
-//        if(eventCount>0 && eventCount %1000==0){
-//            EventPublisher.publishEvents(nodelist.get(nodeCount).getHostname(),nodelist.get(nodeCount).getPort(),eventList);
-//            nodeCount++;
-//            eventList.clear();
-//        }
-//        if(nodeCount== nodelist.size()){
-//            nodeCount=1;
-//        }
+        routeBufferedEvents();
+    }
 
+    //sending-event-count should be determined by considering the optimal packaging of events
+    //i.e. : sending-event-count = max no: of events fit into a network packet
+    //In this implementation test for exceeding the sending-event-count is performed
+    //in the method bufferForRouting by setting sending-event-count to 10000.
+
+    public synchronized void bufferForRouting(List<Event> eventList) {
+        eventList.addAll(eventList);
+        //before notifying sender thread (i.e. the thread spawned using this class)
+        //we are testing whether buffer exceed the sending-event-count
+        if(eventCount>0 && eventCount >=10000){
+            notify();
+        }
+    }
+
+    public synchronized void routeBufferedEvents(){
+        while(true) {
+            try {
+                wait();
+                //by adding a time interval as a parameter we can ensure thread will run periodically without a notify()
+                //by calling periodically we can ensure that every packet is sent without holding
+                //for the condition buffer doesn't exceed sending-event-count
+            } catch (InterruptedException e) { }
+
+            //before sending events sender can check whether buffer has exceeded the sending-event-count
+            //Or following code can be modified to send only a sending-event-count number of events
+            EventPublisher.publishEvents(nodelist.get(nodeCount).getHostname(), nodelist.get(nodeCount).getPort(), eventList);
+            nodeCount++;
+            eventList.clear();
+            eventCount=0;
+
+            //incrementing nodeCount to assure the round robin property
+            if(nodeCount== nodelist.size()){
+                nodeCount=0;
 
             }
         }
-
     }
-
 
 }
