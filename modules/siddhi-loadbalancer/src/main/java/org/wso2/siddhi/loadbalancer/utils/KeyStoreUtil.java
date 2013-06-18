@@ -10,7 +10,8 @@ import java.io.File;
  * To change this template use File | Settings | File Templates.
  */
 public class KeyStoreUtil {
-    static File filePath = new File("/home/isuru/Documents/1.1.0-wso2v1/modules/siddhi-loadbalancer/src/main/resources");
+
+    static File filePath = new File("/home/sameera/FYP/wihidumRepo/siddhi-lb/modules/siddhi-loadbalancer/src/main/resources");
 
     public static void setTrustStoreParams() {
         String trustStore = filePath.getAbsolutePath();

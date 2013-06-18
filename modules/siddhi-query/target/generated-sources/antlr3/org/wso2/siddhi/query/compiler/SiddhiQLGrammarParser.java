@@ -1,4 +1,4 @@
-// $ANTLR 3.4 org/wso2/siddhi/query/compiler/SiddhiQLGrammar.g 2013-05-30 14:16:08
+// $ANTLR 3.4 org/wso2/siddhi/query/compiler/SiddhiQLGrammar.g 2013-06-18 15:42:19
 
 	package org.wso2.siddhi.query.compiler;
 	import java.util.LinkedList;
@@ -615,7 +615,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: type, streamId, attributeName, IP
+            // elements: attributeName, IP, streamId, type
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -634,10 +634,10 @@ public TreeAdaptor getTreeAdaptor() {
                 CommonTree root_1 = (CommonTree)adaptor.nil();
                 root_1 = (CommonTree)adaptor.becomeRoot(stream_streamId.nextNode(), root_1);
 
-                if ( !(stream_type.hasNext()||stream_attributeName.hasNext()) ) {
+                if ( !(stream_attributeName.hasNext()||stream_type.hasNext()) ) {
                     throw new RewriteEarlyExitException();
                 }
-                while ( stream_type.hasNext()||stream_attributeName.hasNext() ) {
+                while ( stream_attributeName.hasNext()||stream_type.hasNext() ) {
                     // org/wso2/siddhi/query/compiler/SiddhiQLGrammar.g:79:113: ^( IN_ATTRIBUTE attributeName type )
                     {
                     CommonTree root_2 = (CommonTree)adaptor.nil();
@@ -653,8 +653,8 @@ public TreeAdaptor getTreeAdaptor() {
                     }
 
                 }
-                stream_type.reset();
                 stream_attributeName.reset();
+                stream_type.reset();
 
                 // org/wso2/siddhi/query/compiler/SiddhiQLGrammar.g:79:151: ( IP )?
                 if ( stream_IP.hasNext() ) {
@@ -791,7 +791,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_outputProjection.add(outputProjection21.getTree());
 
                     // AST REWRITE
-                    // elements: outputStream, outputProjection, inputStream
+                    // elements: outputProjection, outputStream, inputStream
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -1063,7 +1063,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: IP, streamId, outputType
+            // elements: streamId, IP, outputType
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -1760,7 +1760,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: time, patternStream
+                    // elements: patternStream, time
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2185,7 +2185,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: id, windowHandler, filterHandler, transformHandler, streamId
+                    // elements: filterHandler, streamId, transformHandler, id, windowHandler
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2366,7 +2366,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: returnQuery, id, filterHandler, windowHandler, transformHandler
+                    // elements: returnQuery, windowHandler, id, filterHandler, transformHandler
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2555,7 +2555,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: streamId, filterHandler
+                    // elements: filterHandler, streamId
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -2927,7 +2927,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: 120, rightStream, condition, join, time, leftStream
+                    // elements: rightStream, condition, join, time, leftStream, 120
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3060,7 +3060,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: join, time, leftStream, condition, rightStream
+                    // elements: time, rightStream, leftStream, condition, join
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3193,7 +3193,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: time, rightStream, join, condition, 120, leftStream
+                    // elements: leftStream, rightStream, time, join, condition, 120
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3577,7 +3577,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_outputProjection.add(outputProjection101.getTree());
 
             // AST REWRITE
-            // elements: outputProjection, inputStream
+            // elements: inputStream, outputProjection
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -3773,7 +3773,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: patternStream, patternItem
+                    // elements: patternItem, patternStream
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3850,7 +3850,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: patternStream, 84, patternItem
+                    // elements: patternItem, 84, patternStream
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -3945,7 +3945,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: nonEveryPatternStream, 84, patternStream
+                    // elements: patternStream, 84, nonEveryPatternStream
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4580,7 +4580,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: itemStream, collect
+                    // elements: collect, itemStream
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -4773,7 +4773,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_regex.add(regex141.getTree());
 
                     // AST REWRITE
-                    // elements: regex, itemStream
+                    // elements: itemStream, regex
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5183,7 +5183,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: outputAttributeList, groupBy, externalCall, having
+            // elements: having, externalCall, groupBy, outputAttributeList
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -5693,7 +5693,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_id.add(id158.getTree());
 
                     // AST REWRITE
-                    // elements: id, extensionOutFunction
+                    // elements: extensionOutFunction, id
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5741,7 +5741,7 @@ public TreeAdaptor getTreeAdaptor() {
                     if ( state.backtracking==0 ) stream_id.add(id161.getTree());
 
                     // AST REWRITE
-                    // elements: outFunction, id
+                    // elements: id, outFunction
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -5977,7 +5977,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: functionId, parameters, extensionId
+            // elements: parameters, extensionId, functionId
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6402,7 +6402,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_condition.add(condition182.getTree());
 
             // AST REWRITE
-            // elements: condition, 90
+            // elements: 90, condition
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6568,7 +6568,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: 77, parameters, ID
+            // elements: 77, ID, parameters
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -6892,7 +6892,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: parameters, extensibleId
+            // elements: extensibleId, parameters
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -7105,7 +7105,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: parameters, extensibleId
+            // elements: extensibleId, parameters
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -9391,7 +9391,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: 108, conditionExpression
+            // elements: conditionExpression, 108
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -9798,7 +9798,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: extensionId, parameters, functionId
+            // elements: parameters, functionId, extensionId
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -10693,7 +10693,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_id.add(id295.getTree());
 
             // AST REWRITE
-            // elements: streamId, id, POSITIVE_INT_VAL
+            // elements: id, streamId, POSITIVE_INT_VAL
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -10811,7 +10811,7 @@ public TreeAdaptor getTreeAdaptor() {
             if ( state.backtracking==0 ) stream_id.add(id298.getTree());
 
             // AST REWRITE
-            // elements: id, streamId
+            // elements: streamId, id
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -11071,7 +11071,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: 99, 111, 98
+                    // elements: 98, 111, 99
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11195,7 +11195,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
                     // AST REWRITE
-                    // elements: 88, 98, 111
+                    // elements: 111, 98, 88
                     // token labels: 
                     // rule labels: retval
                     // token list labels: 
@@ -11994,7 +11994,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: hourValue, milliSecondValue, monthValue, yearValue, secondValue, weekValue, minuteValue, dayValue
+            // elements: milliSecondValue, secondValue, minuteValue, weekValue, yearValue, monthValue, hourValue, dayValue
             // token labels: 
             // rule labels: retval
             // token list labels: 
@@ -13045,7 +13045,7 @@ public TreeAdaptor getTreeAdaptor() {
 
 
             // AST REWRITE
-            // elements: POSITIVE_FLOAT_VAL, 57
+            // elements: 57, POSITIVE_FLOAT_VAL
             // token labels: 
             // rule labels: retval
             // token list labels: 

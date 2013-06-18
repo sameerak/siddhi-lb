@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1368680657329
-Build-Jdk: 1.6.0_45
-Built-By: isuru
+Bnd-LastModified: 1371550346448
+Build-Jdk: 1.6.0_43
+Built-By: sameera
 Bundle-Description: Siddhi, high performing Complex Event Processing Eng
  ine
 Bundle-ManifestVersion: 2

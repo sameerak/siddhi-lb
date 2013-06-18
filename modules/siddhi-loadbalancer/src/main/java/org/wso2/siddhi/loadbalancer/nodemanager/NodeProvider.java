@@ -21,8 +21,8 @@ public class NodeProvider {
     public static List<Node> getNodeListFromFile(){
 
         try{
+            FileInputStream fstream = new FileInputStream("/home/sameera/FYP/wihidumRepo/siddhi-lb/modules/siddhi-loadbalancer/src/main/resources/OperatorNodes.txt");
 
-            FileInputStream fstream = new FileInputStream("/home/isuru/Documents/project/LoadBalancer/src/utils/OperatorNodes.txt");
             // Get the object of DataInputStream
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
