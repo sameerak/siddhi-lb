@@ -2,15 +2,8 @@ package org.wso2.siddhi.loadbalancer.utils;
 
 import java.io.File;
 
-/**
- * Created with IntelliJ IDEA.
- * User: isuru
- * Date: 4/29/13
- * Time: 9:03 AM
- * To change this template use File | Settings | File Templates.
- */
-public class KeyStoreUtil {
 
+public class KeyStoreUtil {
     static File filePath = new File("/home/sameera/FYP/wihidumRepo/siddhi-lb/modules/siddhi-loadbalancer/src/main/resources");
 
     public static void setTrustStoreParams() {
