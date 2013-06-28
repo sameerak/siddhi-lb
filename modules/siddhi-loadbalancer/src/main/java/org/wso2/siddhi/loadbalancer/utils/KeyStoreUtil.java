@@ -1,20 +1,35 @@
 package org.wso2.siddhi.loadbalancer.utils;
 
 import java.io.File;
+import java.io.IOException;
 
 
 public class KeyStoreUtil {
+<<<<<<< HEAD
     static File filePath = new File("/home/sameera/FYP/wihidumRepo/siddhi-lb/modules/siddhi-loadbalancer/src/main/resources");
+=======
+    static File filePath = new File(".");
+>>>>>>> master
 
     public static void setTrustStoreParams() {
-        String trustStore = filePath.getAbsolutePath();
+        String trustStore = null;
+        try {
+            trustStore = filePath.getCanonicalPath() + "/modules/siddhi-loadbalancer/src/main/resources";
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         System.setProperty("javax.net.ssl.trustStore", trustStore + "/client-truststore.jks");
         System.setProperty("javax.net.ssl.trustStorePassword", "wso2carbon");
 
     }
 
     public static void setKeyStoreParams() {
-        String keyStore = filePath.getAbsolutePath();
+        String keyStore = null;
+        try {
+            keyStore = filePath.getCanonicalPath() + "/modules/siddhi-loadbalancer/src/main/resources";
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
         System.setProperty("Security.KeyStore.Location", keyStore + "/wso2carbon.jks");
         System.setProperty("Security.KeyStore.Password", "wso2carbon");
 
