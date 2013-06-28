@@ -5,11 +5,8 @@ import java.io.IOException;
 
 
 public class KeyStoreUtil {
-<<<<<<< HEAD
-    static File filePath = new File("/home/sameera/FYP/wihidumRepo/siddhi-lb/modules/siddhi-loadbalancer/src/main/resources");
-=======
+
     static File filePath = new File(".");
->>>>>>> master
 
     public static void setTrustStoreParams() {
         String trustStore = null;

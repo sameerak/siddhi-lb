@@ -18,15 +18,11 @@ public class NodeProvider {
 
     public static List<Node> getNodeListFromFile() {
 
-<<<<<<< HEAD
-        try{
-            FileInputStream fstream = new FileInputStream("/home/sameera/FYP/wihidumRepo/siddhi-lb/modules/siddhi-loadbalancer/src/main/resources/OperatorNodes.txt");
 
-=======
         try {
             String path = filePath.getCanonicalPath() + "/modules/siddhi-loadbalancer/src/main/resources/OperatorNodes.txt";
             FileInputStream fstream = new FileInputStream(path);
->>>>>>> master
+
             // Get the object of DataInputStream
             DataInputStream in = new DataInputStream(fstream);
             BufferedReader br = new BufferedReader(new InputStreamReader(in));
