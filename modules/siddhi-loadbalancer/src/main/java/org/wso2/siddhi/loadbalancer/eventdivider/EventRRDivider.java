@@ -58,18 +58,23 @@ public class EventRRDivider implements Divider,Runnable {
     //in the method bufferForRouting by setting sending-event-count to 10000.
 
     public synchronized void bufferForRouting(List<Event> eventList) {
-        eventList.addAll(eventList);
+            System.out.println("########### adding messages to the buffer ####################");
+        this.eventList.addAll(eventList);
         //before notifying sender thread (i.e. the thread spawned using this class)
         //we are testing whether buffer exceed the sending-event-count
-        if(eventCount>0 && eventCount >=10000){
+        if(!this.eventList.isEmpty() && this.eventList.size() >= 10000){
             notify();
+            System.out.println("########### divider notified ####################");
         }
     }
 
     public synchronized void routeBufferedEvents(){
         while(true) {
+            System.out.println("########### divider started ####################");
             try {
+                System.out.println("########### In the try block before wait ####################");
                 wait();
+                  System.out.println("########### In the try block after wait ####################");
                 //by adding a time interval as a parameter we can ensure thread will run periodically without a notify()
                 //by calling periodically we can ensure that every packet is sent without holding
                 //for the condition buffer doesn't exceed sending-event-count
@@ -77,7 +82,17 @@ public class EventRRDivider implements Divider,Runnable {
 
             //before sending events sender can check whether buffer has exceeded the sending-event-count
             //Or following code can be modified to send only a sending-event-count number of events
-            EventPublisher.publishEvents(nodelist.get(nodeCount).getHostname(), nodelist.get(nodeCount).getPort(), eventList);
+            try {
+                EventPublisher.publishEvents(nodelist.get(nodeCount).getHostname(), nodelist.get(nodeCount).getPort(), eventList);
+            } catch (DifferentStreamDefinitionAlreadyDefinedException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (MalformedStreamDefinitionException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (AgentException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (StreamDefinitionException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
             nodeCount++;
             eventList.clear();
             eventCount=0;

@@ -21,7 +21,7 @@ import java.io.File;
 
 public class KeyStoreUtil {
 
-    static  File filePath = new File("/home/isuru/Documents/FYP/cepnodes/wso2cep-2.1.0.1/repository/resources/security");
+    static  File filePath = new File("/home/sameera/FYP/cep_nodes/wso2cep-2.1.0_1/repository/resources/security");
 
     public static void setTrustStoreParams() {
         String trustStore = filePath.getAbsolutePath();

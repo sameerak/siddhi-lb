@@ -70,7 +70,7 @@ public class EventPublisher {
                 dataPublisher.stop();
             }
         }
-        dataPublisher.stop();
+//        dataPublisher.stop();
     }
 
 

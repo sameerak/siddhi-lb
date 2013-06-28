@@ -73,10 +73,12 @@ public class TestAgentServer {
                                       Credentials credentials) {
                 log.info("StreamDefinition " + streamDefinition);
             }
+
                public void removeStream(StreamDefinition streamDefinition,
                                      Credentials credentials) {
                 // log.info("Removed StreamDefinition " + streamDefinition);
             }
+
             @Override
             public void receive(List<Event> eventList, Credentials credentials) {
                 
