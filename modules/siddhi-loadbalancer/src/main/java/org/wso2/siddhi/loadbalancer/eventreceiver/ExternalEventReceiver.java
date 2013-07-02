@@ -29,8 +29,8 @@ public class ExternalEventReceiver {
     private void start(int receiverPort) throws DataBridgeException {
         KeyStoreUtil.setKeyStoreParams();
         final Divider divider = new EventRRDivider();
-//        Thread t = new Thread((EventRRDivider)divider);
-//        t.start();
+        Thread t = new Thread((EventRRDivider)divider);
+        t.start();
         DataBridge databridge = new DataBridge(new AuthenticationHandler() {
             @Override
             public boolean authenticate(String userName,
@@ -60,11 +60,11 @@ public class ExternalEventReceiver {
             public void receive(List<Event> eventList, Credentials credentials) {
                 //  log.info("eventListSize=" + eventList.size() + " eventList " + eventList + " for username " + credentials.getUsername());
 
-                for (Event event : eventList) {
-                    divider.divide(event);
-                }
-//                ((EventRRDivider) divider).bufferForRouting(eventList);
-                // log.info("events send to divider");
+//                for (Event event : eventList) {
+//                    divider.divide(event);
+//                }
+                ((EventRRDivider) divider).bufferForRouting(eventList);
+                log.info("events send to divider");
 
             }
 

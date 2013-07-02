@@ -57,33 +57,40 @@ public class EventRRDivider implements Divider,Runnable {
     //In this implementation test for exceeding the sending-event-count is performed
     //in the method bufferForRouting by setting sending-event-count to 10000.
 
-    public synchronized void bufferForRouting(List<Event> eventList) {
-            System.out.println("########### adding messages to the buffer ####################");
-        this.eventList.addAll(eventList);
-        //before notifying sender thread (i.e. the thread spawned using this class)
-        //we are testing whether buffer exceed the sending-event-count
-        if(!this.eventList.isEmpty() && this.eventList.size() >= 10000){
-            notify();
-            System.out.println("########### divider notified ####################");
+    public  void bufferForRouting(List<Event> eventList) {
+        synchronized(this.eventList){
+                System.out.println("########### adding messages to the buffer ####################");
+            this.eventList.addAll(eventList);
+            //before notifying sender thread (i.e. the thread spawned using this class)
+            //we are testing whether buffer exceed the sending-event-count
+            if(!this.eventList.isEmpty() && this.eventList.size() >= 10000){
+                this.eventList.notify();
+                System.out.println("########### divider notified ####################");
+            }
         }
     }
 
-    public synchronized void routeBufferedEvents(){
+    public void routeBufferedEvents(){
         while(true) {
-            System.out.println("########### divider started ####################");
-            try {
-                System.out.println("########### In the try block before wait ####################");
-                wait();
-                  System.out.println("########### In the try block after wait ####################");
-                //by adding a time interval as a parameter we can ensure thread will run periodically without a notify()
-                //by calling periodically we can ensure that every packet is sent without holding
-                //for the condition buffer doesn't exceed sending-event-count
-            } catch (InterruptedException e) { }
+            List<Event> localEventList = new ArrayList<Event>();
+            synchronized(eventList){
+                System.out.println("########### divider started ####################");
+                try {
+                    System.out.println("########### In the try block before wait ####################");
+                    eventList.wait();
+                      System.out.println("########### In the try block after wait ####################");
+                    //by adding a time interval as a parameter we can ensure thread will run periodically without a notify()
+                    //by calling periodically we can ensure that every packet is sent without holding
+                    //for the condition buffer doesn't exceed sending-event-count
+                } catch (InterruptedException e) { }
+                localEventList.addAll(eventList);
+                eventList.clear();
+            }
 
             //before sending events sender can check whether buffer has exceeded the sending-event-count
             //Or following code can be modified to send only a sending-event-count number of events
             try {
-                EventPublisher.publishEvents(nodelist.get(nodeCount).getHostname(), nodelist.get(nodeCount).getPort(), eventList);
+                EventPublisher.publishEvents(nodelist.get(nodeCount).getHostname(), nodelist.get(nodeCount).getPort(), localEventList);
             } catch (DifferentStreamDefinitionAlreadyDefinedException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (MalformedStreamDefinitionException e) {
@@ -94,8 +101,7 @@ public class EventRRDivider implements Divider,Runnable {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
             nodeCount++;
-            eventList.clear();
-            eventCount=0;
+            localEventList.clear();
 
             //incrementing nodeCount to assure the round robin property
             if(nodeCount== nodelist.size()){
