@@ -11,7 +11,7 @@ public class KeyStoreUtil {
     public static void setTrustStoreParams() {
         String trustStore = null;
         try {
-            trustStore = filePath.getCanonicalPath() + "/modules/siddhi-loadbalancer/src/main/resources";
+            trustStore = filePath.getCanonicalPath() + "/src/main/resources";
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
@@ -23,7 +23,7 @@ public class KeyStoreUtil {
     public static void setKeyStoreParams() {
         String keyStore = null;
         try {
-            keyStore = filePath.getCanonicalPath() + "/modules/siddhi-loadbalancer/src/main/resources";
+            keyStore = filePath.getCanonicalPath() + "/src/main/resources";
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
