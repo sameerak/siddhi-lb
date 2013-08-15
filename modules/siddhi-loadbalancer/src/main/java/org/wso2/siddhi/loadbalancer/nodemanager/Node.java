@@ -1,5 +1,6 @@
 package org.wso2.siddhi.loadbalancer.nodemanager;
 
+import org.apache.log4j.Logger;
 import org.wso2.carbon.databridge.agent.thrift.exception.AgentException;
 import org.wso2.carbon.databridge.commons.Event;
 import org.wso2.carbon.databridge.commons.exception.DifferentStreamDefinitionAlreadyDefinedException;
@@ -17,6 +18,8 @@ public class Node {
     private  String port;
     private String streamID;
     private static List<Event> eventList = new ArrayList<Event>();
+    private EventPublisher eventPublisher;
+    private static Logger logger = Logger.getLogger(Node.class);
 
     public Node(String hostName, String port){
         this.hostname =hostName;
@@ -26,6 +29,11 @@ public class Node {
         this.hostname =hostName;
         this.port =port;
         this.streamID =streamID;
+        try {
+            eventPublisher = new EventPublisher(hostName, port);
+        } catch (Exception e) {
+            logger.info("Error when creating event publisher");
+        }
     }
 
     public String getHostname() {
@@ -45,10 +53,10 @@ public class Node {
     public synchronized void addEvent(Event event){
         eventList.add(event);
 
-        if (eventList.size()>=1000){
-            if(this.streamID != null){
+        if (eventList.size()>=100){
+            /*if(this.streamID != null){
 
-            }
+            }*/
             try {
                 EventPublisher.publishEvents(hostname,port,eventList);
             } catch (DifferentStreamDefinitionAlreadyDefinedException e) {
