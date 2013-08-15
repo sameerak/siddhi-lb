@@ -20,7 +20,7 @@ public class NodeProvider {
 
 
         try {
-            String path = filePath.getCanonicalPath() + "/modules/siddhi-loadbalancer/src/main/resources/OperatorNodes.txt";
+            String path = filePath.getCanonicalPath() + "/src/main/resources/OperatorNodes.txt";
             FileInputStream fstream = new FileInputStream(path);
 
             // Get the object of DataInputStream
@@ -30,7 +30,13 @@ public class NodeProvider {
             //Read File Line By Line
             while ((strLine = br.readLine()) != null) {
                 String[] array = strLine.split("\\|");
-                Node node = new Node(array[0], array[1]);
+                Node node = null;
+                if (array.length == 2) {
+                    node = new Node(array[0], array[1]);
+                }
+                else if (array.length == 3) {
+                    node = new Node(array[0], array[1], array[2]);
+                }
                 inputNodeList.add(node);
             }
 
