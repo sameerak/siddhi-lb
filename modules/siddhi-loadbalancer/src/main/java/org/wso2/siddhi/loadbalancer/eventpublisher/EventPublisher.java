@@ -4,16 +4,14 @@ import org.apache.log4j.Logger;
 
 
 import org.wso2.carbon.databridge.commons.Event;
-import org.wso2.carbon.databridge.commons.exception.DifferentStreamDefinitionAlreadyDefinedException;
-import org.wso2.carbon.databridge.commons.exception.MalformedStreamDefinitionException;
-import org.wso2.carbon.databridge.commons.exception.NoStreamDefinitionExistException;
-import org.wso2.carbon.databridge.commons.exception.StreamDefinitionException;
+import org.wso2.carbon.databridge.commons.exception.*;
 import org.wso2.siddhi.loadbalancer.utils.KeyStoreUtil;
 import org.wso2.carbon.databridge.agent.thrift.Agent;
 import org.wso2.carbon.databridge.agent.thrift.DataPublisher;
 import org.wso2.carbon.databridge.agent.thrift.conf.AgentConfiguration;
 import org.wso2.carbon.databridge.agent.thrift.exception.AgentException;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 
@@ -21,6 +19,14 @@ public class EventPublisher {
     private static Logger logger = Logger.getLogger(EventPublisher.class);
     private static String STREAM_NAME = "org.wso2.phone.retail.store";
     private static String VERSION = "1.2.0";
+    private String host;
+    private String port;
+
+    public EventPublisher(String host, String port) throws MalformedURLException, AgentException, AuthenticationException, TransportException {
+        this.host = host;
+        this.port = port;
+
+    }
 
     public static void publishEvents(String host, String port, List<Event> eventList) throws DifferentStreamDefinitionAlreadyDefinedException, MalformedStreamDefinitionException, AgentException, StreamDefinitionException {
         KeyStoreUtil.setTrustStoreParams();
