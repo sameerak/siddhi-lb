@@ -13,6 +13,7 @@ import org.wso2.carbon.databridge.core.internal.authentication.AuthenticationHan
 import org.wso2.carbon.databridge.receiver.thrift.internal.ThriftDataReceiver;
 import org.wso2.siddhi.loadbalancer.eventdivider.Divider;
 import org.wso2.siddhi.loadbalancer.eventdivider.EventRRDivider;
+import org.wso2.siddhi.loadbalancer.eventdivider.EventStreamDivider;
 import org.wso2.siddhi.loadbalancer.utils.KeyStoreUtil;
 
 import java.net.SocketException;
@@ -28,8 +29,8 @@ public class ExternalEventReceiver {
 
     private void start(int receiverPort) throws DataBridgeException {
         KeyStoreUtil.setKeyStoreParams();
-        final Divider divider = new EventRRDivider();
-        Thread t = new Thread((EventRRDivider)divider);
+        final Divider divider = new EventStreamDivider();
+        Thread t = new Thread((EventStreamDivider)divider);
         t.start();
         DataBridge databridge = new DataBridge(new AuthenticationHandler() {
             @Override
@@ -63,7 +64,7 @@ public class ExternalEventReceiver {
 //                for (Event event : eventList) {
 //                    divider.divide(event);
 //                }
-                ((EventRRDivider) divider).bufferForRouting(eventList);
+                ((EventStreamDivider) divider).bufferForRouting(eventList);
                 log.info("events send to divider");
 
             }
