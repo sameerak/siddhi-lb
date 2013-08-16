@@ -63,6 +63,16 @@ public class ExternalEventReceiver {
 //                for (Event event : eventList) {
 //                    divider.divide(event);
 //                }
+                boolean samePackets = true;
+                String streamID = eventList.get(0).getStreamId();
+                System.out.println("###### stream ID = " + streamID + "###### list size = " + eventList.size());
+                for (Event evt : eventList){
+                    System.out.println("###### event ID = " + evt.getStreamId());
+                    if (!streamID.equals(evt.getStreamId())){
+
+                        samePackets = false;
+                    }
+                }
                 ((EventRRDivider) divider).bufferForRouting(eventList);
                 log.info("events send to divider");
 

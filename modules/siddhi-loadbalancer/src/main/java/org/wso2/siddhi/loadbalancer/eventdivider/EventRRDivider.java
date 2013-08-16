@@ -89,7 +89,7 @@ public class EventRRDivider implements Divider,Runnable {
 
             //before sending events sender can check whether buffer has exceeded the sending-event-count
             //Or following code can be modified to send only a sending-event-count number of events
-            try {
+            /*try {
                 EventPublisher.publishEvents(nodelist.get(nodeCount).getHostname(), nodelist.get(nodeCount).getPort(), localEventList);
             } catch (DifferentStreamDefinitionAlreadyDefinedException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -99,7 +99,9 @@ public class EventRRDivider implements Divider,Runnable {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             } catch (StreamDefinitionException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            }
+            }*/
+
+
             nodeCount++;
             localEventList.clear();
 
