@@ -20,7 +20,7 @@ public class NodeProvider {
 
 
         try {
-            String path = filePath.getCanonicalPath() + "/src/main/resources/OperatorNodes.txt";
+            String path = filePath.getCanonicalPath() + "/modules/siddhi-loadbalancer/src/main/resources/OperatorNodes.txt";
             FileInputStream fstream = new FileInputStream(path);
 
             // Get the object of DataInputStream

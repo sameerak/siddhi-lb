@@ -12,7 +12,7 @@ import java.util.List;
 
 public class EventStreamDivider implements Divider,Runnable {
     final static Query query = QueryFactory.createQuery();
-    private static final List<Node> nodelist  = NodeProvider.getOutputNodeListFromQuery(query);
+    private static final List<Node> nodelist  = NodeProvider.getNodeListFromFile();
     private static List<Event> eventList = new ArrayList<Event>();
 
 
@@ -43,6 +43,7 @@ public class EventStreamDivider implements Divider,Runnable {
                 System.out.println("########### divider started ####################");
                 try {
                     System.out.println("########### In the try block before wait ####################");
+                    if (eventList.isEmpty())
                     eventList.wait();
                       System.out.println("########### In the try block after wait ####################");
                     //by adding a time interval as a parameter we can ensure thread will run periodically without a notify()
@@ -55,7 +56,7 @@ public class EventStreamDivider implements Divider,Runnable {
 
             for (Event evt : localEventList){
                 for(Node node:nodelist){
-                    if(node.getStreamID().equals(evt.getStreamId())){
+                    if(evt.getStreamId().startsWith(node.getStreamID())){
                         node.addEvent(evt);
                         //this process should carry out for entire node list as there is a
                         //many-to-many relationship between stream IDs and nodes

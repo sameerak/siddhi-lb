@@ -17,8 +17,8 @@ import java.util.List;
 
 public class EventPublisher {
     private static Logger logger = Logger.getLogger(EventPublisher.class);
-    private static String STREAM_NAME = "org.wso2.phone.retail.store";
-    private static String VERSION = "1.2.0";
+//    private static String STREAM_NAME = "";
+//    private static String VERSION = "";
     private String host;
     private String port;
 
@@ -41,8 +41,10 @@ public class EventPublisher {
             e.printStackTrace();
             dataPublisher.stop();
         }
-        String streamId = null;
-
+        String streamId = eventList.get(0).getStreamId();
+        String[] array = streamId.split("-");
+        String STREAM_NAME = array[0];
+        String VERSION = array[1];
         try {
             streamId = dataPublisher.findStream(STREAM_NAME, VERSION);
         } catch (NoStreamDefinitionExistException e) {

@@ -26,6 +26,8 @@ public class ExternalEventReceiver {
     private static final ExternalEventReceiver testServer = new ExternalEventReceiver();
     private static String reciverHost = "localhost";
 
+//    private static Integer total_events = 0;
+
 
     private void start(int receiverPort) throws DataBridgeException {
         KeyStoreUtil.setKeyStoreParams();
@@ -64,6 +66,8 @@ public class ExternalEventReceiver {
 //                for (Event event : eventList) {
 //                    divider.divide(event);
 //                }
+//                total_events = total_events + eventList.size();
+//                System.out.println("+++++++++++++++++++++++++total_events = " + total_events);
                 ((EventStreamDivider) divider).bufferForRouting(eventList);
                 log.info("events send to divider");
 

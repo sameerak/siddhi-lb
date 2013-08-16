@@ -21,6 +21,8 @@ public class Node {
     private EventPublisher eventPublisher;
     private static Logger logger = Logger.getLogger(Node.class);
 
+    private Integer total_events = 0;
+
     public Node(String hostName, String port){
         this.hostname =hostName;
         this.port =port;
@@ -57,6 +59,8 @@ public class Node {
             /*if(this.streamID != null){
 
             }*/
+            total_events = total_events + eventList.size();
+            System.out.println("+++++++++++++++++++++++++total_events = " + total_events + " for node = " + streamID);
             try {
                 EventPublisher.publishEvents(hostname,port,eventList);
             } catch (DifferentStreamDefinitionAlreadyDefinedException e) {
